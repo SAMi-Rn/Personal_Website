@@ -9,6 +9,7 @@ import Plane from '../models/Plane'
 
 const Home = () => {
     const [isRotating, setIsRotating] = useState(false)
+    const [currentStage, setCurrentStage] = useState(1)
 
     const adjustStadiumForScreenSize = () => {
         let screenScale = null
@@ -70,13 +71,14 @@ const Home = () => {
                         intensity={1}
                     />
                     <Ball />
-                    <Sky />
+                    <Sky isRotating={isRotating} />
                     <Stadium
                         position={stadiumPosition}
                         scale={stadiumScale}
                         rotation={stadiumRotation}
                         isRotating={isRotating}
                         setIsRotating={setIsRotating}
+                        setCurrentStage={setCurrentStage}
                     />
                     <Plane
                         planeScale={planeScale}
