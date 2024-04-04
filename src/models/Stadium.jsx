@@ -12,22 +12,142 @@ import { useFrame, useThree } from '@react-three/fiber'
 import stadiumScene from '../assets/3d/stadium.glb'
 import { a } from '@react-spring/three'
 
-const Stadium = (props) => {
+const Stadium = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
     const stadiumRef = useRef()
+    const { gl, viewport } = useThree()
 
     const { nodes, materials } = useGLTF(stadiumScene)
+    const lastX = useRef(0)
+    const rotationSpeed = useRef(0)
+    const dampingFactor = 0.95
+
+    const handlePointerDown = (event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        setIsRotating(true)
+
+        const clientX = event.touches ? event.touches[0].clientX : event.clientX
+
+        lastX.current = clientX
+    }
+
+    const handlePointerUp = (event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        setIsRotating(false)
+    }
+
+    const handlePointerMove = (event) => {
+        event.stopPropagation()
+        event.preventDefault()
+        if (isRotating) {
+            // If rotation is enabled, calculate the change in clientX position
+            const clientX = event.touches ? event.touches[0].clientX : event.clientX
+
+            // calculate the change in the horizontal position of the mouse cursor or touch input,
+            // relative to the viewport's width
+            const delta = (clientX - lastX.current) / viewport.width
+
+            // Update the island's rotation based on the mouse/touch movement
+            stadiumRef.current.rotation.y += delta * 0.01 * Math.PI
+
+            // Update the reference for the last clientX position
+            lastX.current = clientX
+
+            // Update the rotation speed
+            rotationSpeed.current = delta * 0.01 * Math.PI
+        }
+    }
+
+    const handleKeyDown = (event) => {
+        if (event.key === "ArrowLeft") {
+            if (!isRotating) setIsRotating(true)
+
+            stadiumRef.current.rotation.y += 0.005 * Math.PI
+            rotationSpeed.current = 0.007
+        } else if (event.key === "ArrowRight") {
+            if (!isRotating) setIsRotating(true)
+
+            stadiumRef.current.rotation.y -= 0.005 * Math.PI
+            rotationSpeed.current = -0.007
+        }
+    }
+
+    // Handle keyup events
+    const handleKeyUp = (event) => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+            setIsRotating(false)
+        }
+    }
+    useEffect(() => {
+
+        // Add event listeners for pointer down, pointer move, and pointer up
+        gl.domElement.addEventListener('pointerdown', handlePointerDown)
+        gl.domElement.addEventListener('pointermove', handlePointerMove)
+        gl.domElement.addEventListener('pointerup', handlePointerUp)
+        window.addEventListener("keydown", handleKeyDown)
+        window.addEventListener("keyup", handleKeyUp)
+
+        return () => {
+            // Remove event listeners when the component is unmounted
+            gl.domElement.removeEventListener('pointerdown', handlePointerDown)
+            gl.domElement.removeEventListener('pointermove', handlePointerMove)
+            gl.domElement.removeEventListener('pointerup', handlePointerUp)
+            window.addEventListener("keydown", handleKeyDown)
+            window.addEventListener("keyup", handleKeyUp)
+        }
+
+
+    }, [gl, handlePointerDown, handlePointerMove, handlePointerUp])
+
+    useFrame(() => {
+        // If not rotating, apply damping to slow down the rotation (smoothly)
+        if (!isRotating) {
+            // Apply damping factor
+            rotationSpeed.current *= dampingFactor
+
+            // Stop rotation when speed is very small
+            if (Math.abs(rotationSpeed.current) < 0.001) {
+                rotationSpeed.current = 0
+            }
+
+            stadiumRef.current.rotation.y += rotationSpeed.current
+        } else {
+            // When rotating, determine the current stage based on island's orientation
+            const rotation = stadiumRef.current.rotation.y
+
+            const normalizedRotation = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
+
+            // Set the current stage based on the island's orientation
+            switch (true) {
+                case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
+
+                    break
+                case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
+
+                    break
+                case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
+
+                    break
+                case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
+
+                    break
+                default:
+
+            }
+        }
+    })
+
     return (
         <a.group ref={stadiumRef}{...props} dispose={null}>
-            <group rotation={[-Math.PI / 2, 0, 0]} scale={29.067}>
-                <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-                    <mesh
-                        geometry={nodes.Ekana_Stadium_Ekana_Stadium_0.geometry}
-                        material={materials.Ekana_Stadium}
-                        rotation={[-Math.PI / 2, 0, 0]}
-                        scale={100}
-                    />
-                </group>
-            </group>
+
+            <mesh
+                geometry={nodes.Ekana_Stadium_Ekana_Stadium_0.geometry}
+                material={materials.Ekana_Stadium}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={20}
+            />
+
         </a.group>
     )
 }
