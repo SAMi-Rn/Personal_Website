@@ -2,10 +2,11 @@ import React from 'react'
 import { Canvas } from "@react-three/fiber"
 import { Suspense, useEffect, useRef, useState } from "react"
 import Loader from '../components/Loader'
-import Stadium from '../models/Stadium'
+import Planet from '../models/Planet'
 import Sky from '../models/Sky'
-import Ball from '../models/Ball'
 import Plane from '../models/Plane'
+import Satellite from '../models/Satellite'
+import HomeInfo from '../components/HomeInfo'
 
 const Home = () => {
     const [isRotating, setIsRotating] = useState(false)
@@ -21,58 +22,44 @@ const Home = () => {
             screenScale = [0.9, 0.9, 0.9]
             screenPosition = [0, -6.5, -43.4]
         } else {
-            screenScale = [1, 1, 1]
-            screenPosition = [0, -6.5, -43.4]
+            screenScale = [12, 12, 12]
+            screenPosition = [0, 7.5, -43.4]
         }
 
         return [screenScale, screenPosition, rotation]
     }
 
     const adjustPlaneForScreenSize = () => {
-        let screenScale, screenPosition
+        let screenScale = [0.2, 0.2, 0.2] // Maintain the scale you want
+        let screenPosition = [0, 0, 0] // Start by centering at the origin
 
-        // If screen width is less than 768px, adjust the scale and position
-        if (window.innerWidth < 768) {
-            screenScale = [1.5, 1.5, 1.5]
-            screenPosition = [0, -1.5, 0]
-        } else {
-            screenScale = [3, 3, 3]
-            screenPosition = [0, -4, -4]
-        }
+        // Adjust further if needed based on camera's position and angle
+        // If the camera is at [0, 0, some_positive_value], the object should appear centered
 
         return [screenScale, screenPosition]
     }
 
-    const [stadiumScale, stadiumPosition, stadiumRotation] = adjustStadiumForScreenSize()
+    // ... inside your component ...
     const [planeScale, planePosition] = adjustPlaneForScreenSize()
+
+    const [stadiumScale, stadiumPosition, stadiumRotation] = adjustStadiumForScreenSize()
+
     return (
         < section className='w-full h-screen relative' >
-            {/* <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center'>
-                Popups goes here
-            </div>    */}
+            <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center text-w'>
+                {currentStage && <HomeInfo currentStage={currentStage} />}
+            </div>
             <Canvas
                 className={`w-full h-screen bg-black ${isRotating ? "cursor-grabbing" : "cursor-grab"
                     }`}
                 camera={{ near: 0.1, far: 1000 }}
             >
                 <Suspense fallback={<Loader />}>
-                    <directionalLight position={[1, 1, 1]} intensity={2} />
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 5, 10]} intensity={2} />
-                    <spotLight
-                        position={[0, 50, 10]}
-                        angle={0.15}
-                        penumbra={1}
-                        intensity={2}
-                    />
-                    <hemisphereLight
-                        skyColor='#b1e1ff'
-                        groundColor='#000000'
-                        intensity={1}
-                    />
-                    <Ball />
+                    <directionalLight position={[1, 1, 1]} intensity={30} />
+
+                    <Satellite />
                     <Sky isRotating={isRotating} />
-                    <Stadium
+                    <Planet
                         position={stadiumPosition}
                         scale={stadiumScale}
                         rotation={stadiumRotation}
@@ -80,6 +67,7 @@ const Home = () => {
                         setIsRotating={setIsRotating}
                         setCurrentStage={setCurrentStage}
                     />
+
                     <Plane
                         planeScale={planeScale}
                         planePosition={planePosition}
