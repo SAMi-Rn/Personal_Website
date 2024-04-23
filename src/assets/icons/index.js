@@ -25,6 +25,7 @@ import breeze from './breeze.svg'
 import soundon from './soundon.png'
 import soundoff from './soundoff.png'
 import astronaut from './astronaut.png'
+import drag from './drag.svg'
 
 export {
     azure,
@@ -53,5 +54,6 @@ export {
     breeze,
     soundon,
     soundoff,
-    astronaut
+    astronaut,
+    drag
 }

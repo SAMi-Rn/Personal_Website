@@ -8,9 +8,9 @@ import SpaceBackground from "./hooks/SpaceBackground"
 const MainContent = () => {
     const location = useLocation() // useLocation is called inside a component which will be rendered inside Router
 
-    let mainClass = location.pathname === '/contact' ? 'h-[100vh]' : ''
+    let mainClass = location.pathname === '/contact' ? 'h-full' : ''
     if (['/'].includes(location.pathname)) {
-        mainClass += ' bg-black'
+        mainClass += 'h-full '
     }
 
     return (

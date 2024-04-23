@@ -117,7 +117,7 @@ export const experiences = [
         company_name: "PTN MED CO",
         icon: ptn, // Ensure you have a corresponding icon for PTN MED CO
         iconBg: "lightgray",
-        date: "July 2023 – Current",
+        date: "July 2023 – April 2024",
         points: [
             "Directed migration from Visual Basic to C# web apps, boosting performance and security in healthcare software.",
             "Implemented Agile in Azure DevOps, enhancing project delivery and team agility.",

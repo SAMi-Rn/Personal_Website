@@ -1,19 +1,20 @@
 
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-import stadiumScene from '../assets/3d/planet.glb'
+import stadiumScene from '../assets/3d/planet1.glb'
 import { a } from '@react-spring/three'
 
-const Planet = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
+const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }) => {
     const planetRef = useRef()
     const { gl, viewport } = useThree()
-
+    const [modelLoaded, setModelLoaded] = useState(false)
     const { nodes, materials, animations } = useGLTF(stadiumScene)
     const lastX = useRef(0)
     const rotationSpeed = useRef(0)
-    const dampingFactor = 0.9
+    const dampingFactor = 0.98
     const { actions } = useAnimations(animations, planetRef)
+
     const handlePointerDown = (event) => {
         event.stopPropagation()
         event.preventDefault()
@@ -42,13 +43,13 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
             const delta = (clientX - lastX.current) / viewport.width
 
             // Update the island's rotation based on the mouse/touch movement
-            planetRef.current.rotation.y += delta * 0.006 * Math.PI
+            planetRef.current.rotation.y += delta * 0.009 * Math.PI
 
             // Update the reference for the last clientX position
             lastX.current = clientX
 
             // Update the rotation speed
-            rotationSpeed.current = delta * 0.006 * Math.PI
+            rotationSpeed.current = delta * 0.009 * Math.PI
         }
     }
     // Handle keydown events
@@ -103,6 +104,19 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
 
     }, [gl, handlePointerDown, handlePointerMove, handlePointerUp, actions])
 
+
+    useEffect(() => {
+        // Check if the model has been loaded
+        if (nodes && materials && animations) {
+            setModelLoaded(true)
+            if (onLoad) {
+                onLoad() // Call the onLoad callback if provided
+            }
+        }
+    }, [nodes, materials, animations, onLoad])
+
+
+
     useFrame(() => {
         // If not rotating, apply damping to slow down the rotation (smoothly)
         if (!isRotating) {
@@ -122,17 +136,20 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
             const normalizedRotation = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
             // Set the current stage based on the island's orientation
             switch (true) {
-                case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
+                case normalizedRotation >= 5.45 && normalizedRotation <= 6.15:
                     setCurrentStage(4)
                     break
-                case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
+                case normalizedRotation >= 0.85 && normalizedRotation <= 1.6:
                     setCurrentStage(3)
                     break
-                case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
+                case normalizedRotation >= 2.4 && normalizedRotation <= 2.9:
                     setCurrentStage(2)
                     break
-                case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
+                case normalizedRotation >= 4.27 && normalizedRotation <= 5.25:
                     setCurrentStage(1)
+                    break
+                case normalizedRotation >= 4.25 && normalizedRotation <= 4.26:
+                    setCurrentStage(5)
                     break
                 default:
                     setCurrentStage(null)

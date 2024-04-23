@@ -1,6 +1,6 @@
 import React from 'react'
 import { Canvas } from "@react-three/fiber"
-import { Suspense, useEffect, useRef, useState } from "react"
+import { Suspense, useEffect, useRef, useState, useCallback } from "react"
 import Loader from '../components/Loader'
 import Planet from '../models/Planet'
 import Sky from '../models/Sky'
@@ -9,15 +9,102 @@ import Satellite from '../models/Satellite'
 import HomeInfo from '../components/HomeInfo'
 import drone from '../assets/drone.mp3'
 import { soundoff, soundon } from "../assets/icons"
+import SpaceBackground from '../hooks/SpaceBackground'
+import addTiltEffect from '../components/TiltEffect'
+const SplashScreen = ({ isLoading, onExplore }) => {
+    const buttonRefs = useRef([])
+
+    // This function adds an element to the buttonRefs array
+    const addRefs = (el) => {
+        if (el && !buttonRefs.current.includes(el)) {
+            buttonRefs.current.push(el)
+        }
+    }
+
+    // This effect applies the tilt effect to all buttons
+    useEffect(() => {
+        sessionStorage.removeItem('shownStage5')
+        buttonRefs.current.forEach(button => {
+            if (button) {
+                addTiltEffect(button)
+            }
+        })
+    }, [])
+    return (
+        <div className="splash-screen">
+            <SpaceBackground />
+            <h1 className="splash-header">WELCOME TO MY PORTFOLIO WEBSITE!</h1>
+
+            <span className="splash-text">Hi, I'm Sami👋</span>
+
+            <span className="splash-text">A Co-op student at the British Columbia Institute of Technology (BCIT)</span>
+
+            <p className="splash-text"> Join me as we navigate the constellations of creativity that form the universe of my professional endeavors.</p>
+            <button
+                ref={addRefs}
+                className="splash-button"
+                onClick={!isLoading ? onExplore : null}
+                style={{
+                    cursor: !isLoading ? 'pointer' : 'default',
+                    opacity: isLoading ? 0.5 : 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}
+                disabled={isLoading} // Disable the button when isLoading
+            >
+                {isLoading
+                    ? <div className="spinner"></div> // Show spinner when loading
+                    : 'EXPLORE MY UNIVERSE →' // Show text when not loading
+                }
+            </button>
+        </div>
+    )
+}
+
+
 
 const Home = () => {
     const audioRef = useRef(new Audio(drone))
     audioRef.current.loop = true
     audioRef.current.volume = 0.05
     const [isRotating, setIsRotating] = useState(false)
-    const [currentStage, setCurrentStage] = useState(1)
+    const [currentStage, setCurrentStage] = useState(5)
     const [isPlayingMusic, setIsPlayingMusic] = useState(false)
+    const [isLoading, setIsLoading] = useState(true) // Start with loading true
+    const [showSplash, setShowSplash] = useState(true) // Start with splash screen visible
+    const [loadedModels, setLoadedModels] = useState({
+        planet: false,
+        sky: false,
+        satellite: false,
+        plane: false,
+    })
+    const modelsLoadedRef = useRef({
+        planet: false,
+        sky: false,
+        satellite: false,
+        plane: false,
+    })
+    const handleExplore = () => {
+        setShowSplash(false) // Hide splash screen
+    }
+    const checkAllModelsLoaded = () => {
+        return Object.values(modelsLoadedRef.current).every(Boolean)
+    }
 
+    const handleModelLoaded = useCallback((modelName) => {
+        console.log(`${modelName} loaded`)
+        modelsLoadedRef.current[modelName] = true
+
+        // After updating the ref, check if all models are loaded
+        if (checkAllModelsLoaded()) {
+            setIsLoading(false) // Set loading to false when all models have loaded
+        }
+    }, [])
+    useEffect(() => {
+        const allModelsLoaded = Object.values(loadedModels).every(Boolean)
+        setIsLoading(!allModelsLoaded)
+    }, [loadedModels])
     useEffect(() => {
         if (isPlayingMusic) {
             audioRef.current.play()
@@ -63,6 +150,7 @@ const Home = () => {
 
     return (
         < section className='w-full h-screen relative' >
+            {showSplash && <SplashScreen isLoading={isLoading} onExplore={handleExplore} />}
             <div className='absolute top-28 left-0 right-0 z-10 flex items-center justify-center text-w'>
                 {currentStage && <HomeInfo currentStage={currentStage} />}
             </div>
@@ -74,9 +162,12 @@ const Home = () => {
                 <Suspense fallback={<Loader />}>
                     <directionalLight position={[1, 1, 1]} intensity={30} />
 
-                    <Satellite />
-                    <Sky isRotating={isRotating} />
+                    <Satellite
+                        onLoad={() => handleModelLoaded('satellite')} />
+                    <Sky onLoad={() => handleModelLoaded('sky')}
+                        isRotating={isRotating} />
                     <Planet
+                        onLoad={() => handleModelLoaded('planet')}
                         position={stadiumPosition}
                         scale={stadiumScale}
                         rotation={stadiumRotation}
@@ -86,6 +177,7 @@ const Home = () => {
                     />
 
                     <Plane
+                        onLoad={() => handleModelLoaded('plane')}
                         planeScale={planeScale}
                         planePosition={planePosition}
                         isRotating={isRotating}
@@ -95,6 +187,7 @@ const Home = () => {
                 </Suspense>
 
             </Canvas>
+
             <div className='absolute bottom-2 left-2'>
                 <img
                     src={!isPlayingMusic ? soundoff : soundon}
@@ -104,7 +197,7 @@ const Home = () => {
                 />
             </div>
 
-        </section>
+        </section >
 
     )
 }

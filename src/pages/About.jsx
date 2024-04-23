@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { skills, experiences } from "../constants"
 import {
     VerticalTimeline,
@@ -8,7 +8,18 @@ import "react-vertical-timeline-component/style.min.css"
 import CTA from "../components/CTA"
 import SpaceBackground from '../hooks/SpaceBackground'
 const About = () => {
+    const [isNarrowScreen, setIsNarrowScreen] = useState(window.innerWidth < 1170)
 
+    useEffect(() => {
+        const updateMedia = () => {
+            setIsNarrowScreen(window.innerWidth < 1170)
+        }
+
+        window.addEventListener('resize', updateMedia)
+        updateMedia()
+
+        return () => window.removeEventListener('resize', updateMedia)
+    }, [])
     return (
         <div>
             <SpaceBackground />
@@ -73,7 +84,7 @@ const About = () => {
                                         borderStyle: "solid",
                                         borderBottomColor: experience.iconBg,
                                         boxShadow: "none",
-                                        color: "white",
+                                        color: isNarrowScreen ? "black" : "white",
                                     }}
                                 >
                                     <div>

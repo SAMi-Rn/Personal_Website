@@ -1,14 +1,14 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useAnimations, useGLTF } from '@react-three/drei'
-import planeScene from '../assets/3d/spaceship (1).glb'
+import planeScene from '../assets/3d/spaceship.glb'
 import { useThree, useFrame } from '@react-three/fiber'
 
-const Plane = ({ isRotating, ...props }) => {
+const Plane = ({ isRotating, onLoad, ...props }) => {
     const ref = useRef()
     const lightRef = useRef()
     const { scene, animations } = useGLTF(planeScene)
     const { actions } = useAnimations(animations, ref)
-
+    const [modelLoaded, setModelLoaded] = useState(false)
     // Determine screen size and set scale and position
     let screenScale, screenPosition, screenRotation
     if (window.innerWidth < 768) {
@@ -19,7 +19,14 @@ const Plane = ({ isRotating, ...props }) => {
         screenPosition = [0, -2.8, -3]
 
     }
-
+    useEffect(() => {
+        if (ref.current) {
+            setModelLoaded(true)
+            if (onLoad) {
+                onLoad() // Call the onLoad callback if provided
+            }
+        }
+    }, [onLoad])
     useEffect(() => {
         if (isRotating) {
             actions["Armature|ArmatureAction.001"].play()

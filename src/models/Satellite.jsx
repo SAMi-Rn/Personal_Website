@@ -1,15 +1,25 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useThree, useFrame } from '@react-three/fiber'
-import satelliteScene from '../assets/3d/satellite.glb'
+import satelliteScene from '../assets/3d/satelite1.glb'
 
-const Satellite = () => {
+const Satellite = ({ onLoad }) => {
     const sattelliteRef = useRef()
     const lightRef = useRef()
     const { scene, animations } = useGLTF(satelliteScene)
     const { actions } = useAnimations(animations, sattelliteRef)
     const { camera } = useThree()
+    const [modelLoaded, setModelLoaded] = useState(false) // State to track if the model has loaded
 
+    useEffect(() => {
+        // Check if the model has been loaded
+        if (scene && animations) {
+            setModelLoaded(true)
+            if (onLoad) {
+                onLoad() // Call the onLoad callback if provided
+            }
+        }
+    }, [scene, animations, onLoad])
     useEffect(() => {
         actions["ArmatureAction"].play()
     }, [actions])

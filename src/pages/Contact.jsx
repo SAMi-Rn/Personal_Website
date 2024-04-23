@@ -1,7 +1,7 @@
 import React from 'react'
 import emailjs from "@emailjs/browser"
 import { Canvas } from "@react-three/fiber"
-import { Suspense, useRef, useState } from "react"
+import { Suspense, useRef, useState, useEffect } from "react"
 import Robot from "../models/Robot"
 import Loader from "../components/Loader"
 import useAlert from "../hooks/useAlert"
@@ -9,6 +9,7 @@ import Alert from "../components/Alert"
 
 
 const Contact = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const formRef = useRef()
     const [form, setForm] = useState({ name: "", email: "", message: "" })
     const [loading, setLoading] = useState(false)
@@ -71,12 +72,31 @@ const Contact = () => {
         handleBlur = () => setCurrentAnimation("Aim_Right")
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth)
+        }
 
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
     return (
         <section className='relative flex lg:flex-row flex-col max-container' >
-            {alert.show && <Alert {...alert} />}
+
             <div className='flex-1 min-w-[50%] flex flex-col'>
                 <h1 className='head-text text-white'>Get in Touch</h1>
+                {alert.show && (
+                    <div style={{
+                        position: 'relative',
+                        top: windowWidth <= 768 ? '-36px' : loading ? '55%' : '-46px',
+                        right: windowWidth <= 768 ? '0' : '50px'
+                    }}>
+                        <Alert {...alert} />
+                    </div>
+                )}
                 <form
                     ref={formRef}
                     onSubmit={handleSubmit}
