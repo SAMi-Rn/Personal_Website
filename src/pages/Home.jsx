@@ -1,7 +1,7 @@
 import React from 'react'
 import { Canvas } from "@react-three/fiber"
 import { Suspense, useEffect, useRef, useState, useCallback } from "react"
-import Loader from '../components/Loader'
+
 import Planet from '../models/Planet'
 import Sky from '../models/Sky'
 import Plane from '../models/Plane'
@@ -159,7 +159,7 @@ const Home = () => {
                     }`}
                 camera={{ near: 0.1, far: 1000 }}
             >
-                <Suspense fallback={<Loader />}>
+                <Suspense >
                     <directionalLight position={[1, 1, 1]} intensity={30} />
 
                     <Satellite
