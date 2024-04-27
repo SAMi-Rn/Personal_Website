@@ -22,14 +22,12 @@ const HomeInfo = ({ currentStage }) => {
     const handleUserInteraction = () => {
         setShowTooltip(false)
     }
-    // This function adds an element to the buttonRefs array
     const addRefs = (el) => {
         if (el && !buttonRefs.current.includes(el)) {
             buttonRefs.current.push(el)
         }
     }
 
-    // This effect applies the tilt effect to all buttons
     useEffect(() => {
         buttonRefs.current.forEach(button => {
             if (button) {
@@ -41,15 +39,13 @@ const HomeInfo = ({ currentStage }) => {
     const [showStage5, setShowStage5] = useState(false)
 
     useEffect(() => {
-        // Check if the message for stage 5 has already been shown using sessionStorage
         const alreadyShown = sessionStorage.getItem('shownStage5') === 'true'
 
         if (currentStage === 5 && !alreadyShown) {
             setShowStage5(true)  // Show the tooltip
-            sessionStorage.setItem('shownStage5', 'true')  // Set the flag in sessionStorage
+            sessionStorage.setItem('shownStage5', 'true')
         }
-    }, [currentStage])  // Dependency on currentStage ensures this runs when stage changes
-
+    }, [currentStage])
     if (showStage5) {
         return (
             <div className="space-container">
