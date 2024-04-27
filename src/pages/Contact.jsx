@@ -7,7 +7,6 @@ import Loader from "../components/Loader"
 import useAlert from "../hooks/useAlert"
 import Alert from "../components/Alert"
 
-
 const Contact = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const formRef = useRef()
