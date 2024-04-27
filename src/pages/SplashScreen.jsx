@@ -41,11 +41,11 @@ const SplashScreen = ({ isLoading, onExplore }) => {
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}
-                disabled={isLoading} // Disable the button when isLoading
+                disabled={isLoading}
             >
                 {isLoading
-                    ? <div className="spinner"></div> // Show spinner when loading
-                    : 'EXPLORE MY UNIVERSE →' // Show text when not loading
+                    ? <div className="spinner"></div>
+                    : 'EXPLORE MY UNIVERSE →'
                 }
             </button>
         </div>
