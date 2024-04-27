@@ -167,14 +167,12 @@ body:has(.card[data-color="green"]:hover) {
     transform: translateZ(80px) translateY(-5px) rotateX(15deg) rotateY(15deg);
 }
 
-/* Neo Brutalism */
 .neo-brutalism-blue {
     background: linear-gradient(to right, #2b77e7, #010f8e);
     position: relative;
     border-radius: 10px;
     border: 1px solid #2b77e7;
 
-    /* Added a solid border color */
     box-shadow:
         0.6vmin 0.6vmin 0 #0c4eae,
         1vmin 1vmin 0.5vmin #0c4eae,
@@ -186,7 +184,6 @@ body:has(.card[data-color="green"]:hover) {
 .neo-brutalism-white {
     background: linear-gradient(to right, #fff, #ffffff);
     border: 1px solid #fff;
-    /* Added a solid border color */
     box-shadow:
         0.6vmin 0.6vmin 0 #d2e4ff,
         1vmin 1vmin 0.5vmin #d2e4ff,
@@ -195,7 +192,7 @@ body:has(.card[data-color="green"]:hover) {
         1vmin 0.65vmin 0 #d2e4ff;
 }
 
-/* Initial state of your project elements. */
+
 .project-card {
     transform: rotateY(90deg);
     transition: transform 0.5s;
@@ -203,7 +200,6 @@ body:has(.card[data-color="green"]:hover) {
     transition: opacity 0.5s, transform 0.5s;
 }
 
-/* Final state of your project elements when in view. */
 .project-card.visible {
     transform: rotateY(0deg);
     opacity: 1;
@@ -227,11 +223,8 @@ body:has(.card[data-color="green"]:hover) {
 
 .navlink-3d {
     width: 40.5rem;
-    /* Adjust the width as needed */
     height: 5rem;
-    /* Adjust the height as needed */
     border-radius: 1rem;
-
     display: flex;
     align-items: left;
     justify-content: left;
@@ -254,7 +247,6 @@ body:has(.card[data-color="green"]:hover) {
     transition: transform 0.3s ease;
 }
 
-/* Add this keyframes for a continuous animation if desired */
 @keyframes float {
 
     0%,
@@ -267,16 +259,13 @@ body:has(.card[data-color="green"]:hover) {
     }
 }
 
-/* Applying the animation to the NavLink */
 .navlink-3d {
     animation: float 3s ease-in-out infinite;
 }
 
 .nav-3d {
     width: 5rem;
-    /* Adjust the width as needed */
     height: 2rem;
-    /* Adjust the height as needed */
     border-radius: 1rem;
     background: linear-gradient(to right, #000000, #151515);
     display: flex;
@@ -307,7 +296,6 @@ body:has(.card[data-color="green"]:hover) {
     text-transform: uppercase;
     font-family: verdana;
 
-    /* Default font size */
     font-size: 1.2em;
 
     color: #ffffff;
@@ -331,15 +319,12 @@ body:has(.card[data-color="green"]:hover) {
 @media (max-width: 550px) {
     .name3d {
         font-size: 1em;
-        /* Adjust the font size as needed */
     }
 }
 
-/* Media query for screens smaller than 500px */
 @media (max-width: 380px) {
     .name3d {
         font-size: .8em;
-        /* Adjust the font size as needed */
     }
 
     .header {
@@ -349,7 +334,6 @@ body:has(.card[data-color="green"]:hover) {
 
 .alert-container {
     z-index: 10;
-    /* Make sure the alert is on top of other content */
 }
 
 .splash-screen {
@@ -363,11 +347,9 @@ body:has(.card[data-color="green"]:hover) {
     justify-content: center;
     align-items: center;
     background-color: #000;
-    /* Solid black background */
     color: #fff;
     z-index: 1000;
     font-family: 'sans-serif';
-    /* Assuming a sans-serif font */
 }
 
 @keyframes spaceFadeInUp {
@@ -401,11 +383,8 @@ body:has(.card[data-color="green"]:hover) {
     padding: 0.2em 0;
     text-align: center;
     color: #cce7ff;
-    /* A light color for the text */
     text-shadow: 0 0 10px #9baeff, 0 0 20px #9baeff;
-    /* Glowing effect */
     animation: spaceFadeInUp 1.5s ease-out forwards;
-    /* Unique fade in and move up animation */
 }
 
 .splash-text {
@@ -414,19 +393,14 @@ body:has(.card[data-color="green"]:hover) {
     max-width: 600px;
     text-align: center;
     color: #a9b4c2;
-    /* A soft color that resembles distant stars */
     text-shadow: 0 0 5px #7f8c9a;
-    /* Subtle glow to make the text 'pop' */
     animation: spaceFadeInUpText 2.5s ease-out forwards;
-    /* Unique fade in and move up animation */
-
 }
 
 .splash-button {
     padding: 15px 30px;
     font-size: 1.2em;
     background: linear-gradient(45deg, #4b6cb7 0%, #182848 100%);
-    /* Gradient background for a space-like effect */
     color: #fff;
     border: none;
     border-radius: 25px;
@@ -437,7 +411,6 @@ body:has(.card[data-color="green"]:hover) {
     font-weight: bold;
     letter-spacing: 1px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    /* Add shadow for 3D effect */
     position: relative;
     overflow: hidden;
     transition: all 0.3s;
@@ -451,40 +424,32 @@ body:has(.card[data-color="green"]:hover) {
     width: 100%;
     height: 100%;
     background: rgba(255, 255, 255, 0.1);
-    /* Subtle shine to the button */
     clip-path: polygon(-25% 0, 0 0, 25% 100%, -50% 100%);
-    /* Diagonal shine effect */
     transition: all 0.3s;
     pointer-events: none;
 }
 
 .splash-button:hover::before {
     clip-path: polygon(100% 0, 125% 0, 75% 100%, 50% 100%);
-    /* Animate shine to the right on hover */
 }
 
 .splash-button:active {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    /* Adjust shadow for pressed effect */
+
 }
 
-/* Media query for screen sizes smaller than 500px */
 @media (max-width: 650px) {
     .splash-header {
         font-size: 2em;
-        /* Smaller font size for the header on small screens */
     }
 
     .splash-text {
         font-size: 1em;
-        /* Smaller font size for the paragraph on small screens */
     }
 
     .splash-button {
         padding: 10px 20px;
-        /* Smaller padding for the button on small screens */
         font-size: 1em;
-        /* Smaller font size for the button text on small screens */
     }
 }
 
@@ -520,7 +485,6 @@ body:has(.card[data-color="green"]:hover) {
 }
 
 .info-box {
-    /* Apply starry background, gradient, and border as suggested previously */
     background-color: rgba(0, 0, 30, 0.9);
     border: 1px solid #fff;
     border-radius: 10px;
@@ -529,17 +493,11 @@ body:has(.card[data-color="green"]:hover) {
     margin: 20px;
     animation: spaceFloatIn 1s ease-out forwards;
     display: flex;
-    /* Use flexbox to align children */
     flex-direction: column;
-    /* Stack children vertically */
     align-items: center;
-    /* Center-align items horizontally */
     justify-content: center;
-    /* Center-align items vertically */
     max-width: 40%;
-    /* Prevent full width, adjust as needed */
     margin: 20px auto;
-    /* Center the box horizontally */
     width: auto;
 }
 
@@ -552,7 +510,6 @@ body:has(.card[data-color="green"]:hover) {
 }
 
 .neo-btn {
-
     display: inline-block;
     text-decoration: none;
     padding: 15px 30px;
@@ -560,10 +517,7 @@ body:has(.card[data-color="green"]:hover) {
     background-color: rgba(0, 0, 45, 0.916);
     color: #ffffff;
     border: 0.5px solid #c2c2c255;
-
-
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-
     border-radius: 25px;
     margin-top: 30px;
     cursor: pointer;
@@ -571,7 +525,6 @@ body:has(.card[data-color="green"]:hover) {
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
-
     transition: all 0.1s ease;
     font-size: 1em;
     max-width: 40%;
@@ -592,7 +545,6 @@ body:has(.card[data-color="green"]:hover) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* Style as needed */
 }
 
 .space-container {
@@ -615,15 +567,12 @@ body:has(.card[data-color="green"]:hover) {
     text-align: center;
     animation: floaty 3s ease-in-out infinite;
     border-radius: 40%;
-    /* Center the text */
 }
 
 .blurry-text {
     color: white;
     text-shadow: 0px 0px 10px rgba(0, 255, 255, 0.7);
-    /* Cyan glow for text */
     font-size: larger;
-    /* Additional styling for your text */
 }
 
 @keyframes floaty {
@@ -648,26 +597,18 @@ body:has(.card[data-color="green"]:hover) {
     50% {
         box-shadow: 0 0 30px rgba(255, 255, 255, 0.7);
     }
-
-    /* Increase the glow */
 }
 
 @media (max-width: 1550px) {
 
     .info-box {
-
         max-width: 50%;
-        /* Prevent full width, adjust as needed */
         margin: 10px auto;
-        /* Center the box horizontally */
         width: auto;
-
     }
 
 
     .neo-btn {
-
-
         font-size: 0.9em;
         max-width: 49%;
 
@@ -681,19 +622,13 @@ body:has(.card[data-color="green"]:hover) {
 @media (max-width: 960px) {
 
     .info-box {
-
         max-width: 90%;
-        /* Prevent full width, adjust as needed */
         margin: 20px auto;
-        /* Center the box horizontally */
         width: auto;
 
     }
 
-
     .neo-btn {
-
-
         font-size: 0.9em;
         max-width: 39%;
 
@@ -707,19 +642,13 @@ body:has(.card[data-color="green"]:hover) {
 @media (max-width: 768px) {
 
     .info-box {
-
         max-width: 72%;
-        /* Prevent full width, adjust as needed */
         margin: 20px auto;
-        /* Center the box horizontally */
         width: auto;
-
     }
 
 
     .neo-btn {
-
-
         font-size: 0.9em;
         max-width: 65%;
 
@@ -732,38 +661,26 @@ body:has(.card[data-color="green"]:hover) {
 
 @media (max-width: 650px) {
     .space-container {
-        /* Reduced padding and smaller border radius for smaller screens */
         padding: 3px;
-
     }
 
     .blurry-box-wrapper {
-        /* Smaller padding, border radius and text for smaller screens */
         padding: 19px;
-
     }
 
     .blurry-text {
-        /* Smaller font size for smaller screens */
         font-size: medium;
     }
 
-    /* Adjust any image or icon sizes here */
     img {
         width: 7rem;
-        /* Example: reduces the width of all images */
         height: auto;
-        /* Maintain aspect ratio */
     }
 
     .info-box {
-
         max-width: 72%;
-        /* Prevent full width, adjust as needed */
         margin: 20px auto;
-        /* Center the box horizontally */
         width: auto;
-
     }
 
     .info-box h1,
@@ -771,12 +688,9 @@ body:has(.card[data-color="green"]:hover) {
         color: #e3f0ff;
         text-shadow: 0 0 10px rgba(200, 200, 255, 0.862);
         font-family: 'Orbitron', sans-serif;
-
     }
 
     .neo-btn {
-
-
         font-size: 0.7em;
         max-width: 65%;
 
@@ -790,22 +704,14 @@ body:has(.card[data-color="green"]:hover) {
 @media (max-width: 427px) {
 
     .info-box {
-
         max-width: 72%;
-        /* Prevent full width, adjust as needed */
         margin: 20px auto;
-        /* Center the box horizontally */
         width: auto;
-
     }
 
-
     .neo-btn {
-
-
         font-size: 0.6em;
         max-width: 74%;
-
     }
 
     .neo-btn {
