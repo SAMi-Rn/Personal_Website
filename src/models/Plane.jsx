@@ -9,7 +9,7 @@ const Plane = ({ isRotating, onLoad, ...props }) => {
     const { scene, animations } = useGLTF(planeScene)
     const { actions } = useAnimations(animations, ref)
     const [modelLoaded, setModelLoaded] = useState(false)
-    // Determine screen size and set scale and position
+
     let screenScale, screenPosition, screenRotation
     if (window.innerWidth < 768) {
         screenScale = [0.008, 0.008, 0.008]
@@ -23,7 +23,7 @@ const Plane = ({ isRotating, onLoad, ...props }) => {
         if (ref.current) {
             setModelLoaded(true)
             if (onLoad) {
-                onLoad() // Call the onLoad callback if provided
+                onLoad()
             }
         }
     }, [onLoad])
