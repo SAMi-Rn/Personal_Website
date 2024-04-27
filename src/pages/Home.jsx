@@ -21,8 +21,8 @@ const Home = () => {
     const [isRotating, setIsRotating] = useState(false)
     const [currentStage, setCurrentStage] = useState(5)
     const [isPlayingMusic, setIsPlayingMusic] = useState(false)
-    const [isLoading, setIsLoading] = useState(true) // Start with loading true
-    const [showSplash, setShowSplash] = useState(true) // Start with splash screen visible
+    const [isLoading, setIsLoading] = useState(true)
+    const [showSplash, setShowSplash] = useState(true)
     const [loadedModels, setLoadedModels] = useState({
         planet: false,
         sky: false,
@@ -36,7 +36,7 @@ const Home = () => {
         plane: false,
     })
     const handleExplore = () => {
-        setShowSplash(false) // Hide splash screen
+        setShowSplash(false)
     }
     const checkAllModelsLoaded = () => {
         return Object.values(modelsLoadedRef.current).every(Boolean)
@@ -46,9 +46,8 @@ const Home = () => {
         console.log(`${modelName} loaded`)
         modelsLoadedRef.current[modelName] = true
 
-        // After updating the ref, check if all models are loaded
         if (checkAllModelsLoaded()) {
-            setIsLoading(false) // Set loading to false when all models have loaded
+            setIsLoading(false)
         }
     }, [])
     useEffect(() => {
@@ -82,18 +81,16 @@ const Home = () => {
     }
 
     const adjustPlaneForScreenSize = () => {
-        let screenScale = [0.2, 0.2, 0.2] // Maintain the scale you want
-        let screenPosition = [0, 0, 0] // Start by centering at the origin
+        let screenScale = [0.2, 0.2, 0.2]
+        let screenPosition = [0, 0, 0]
 
         if (window.innerWidth < 768) {
-            screenScale = [2, 0.002, 0.002] // Maintain the scale you want
+            screenScale = [2, 0.002, 0.002]
             screenPosition = [20, 0, 0]
         }
 
         return [screenScale, screenPosition]
     }
-
-    // ... inside your component ...
     const [planeScale, planePosition] = adjustPlaneForScreenSize()
 
     const [stadiumScale, stadiumPosition, stadiumRotation] = adjustStadiumForScreenSize()
