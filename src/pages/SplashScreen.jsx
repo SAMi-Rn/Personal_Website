@@ -1,17 +1,17 @@
 import { Suspense, useEffect, useRef, useState, useCallback } from "react"
 import SpaceBackground from '../hooks/SpaceBackground'
 import addTiltEffect from '../components/TiltEffect'
+
 const SplashScreen = ({ isLoading, onExplore }) => {
     const buttonRefs = useRef([])
 
-    // This function adds an element to the buttonRefs array
+
     const addRefs = (el) => {
         if (el && !buttonRefs.current.includes(el)) {
             buttonRefs.current.push(el)
         }
     }
 
-    // This effect applies the tilt effect to all buttons
     useEffect(() => {
         sessionStorage.removeItem('shownStage5')
         buttonRefs.current.forEach(button => {
