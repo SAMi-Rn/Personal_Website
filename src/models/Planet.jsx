@@ -35,24 +35,16 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
         event.stopPropagation()
         event.preventDefault()
         if (isRotating) {
-            // If rotation is enabled, calculate the change in clientX position
             const clientX = event.touches ? event.touches[0].clientX : event.clientX
 
-            // calculate the change in the horizontal position of the mouse cursor or touch input,
-            // relative to the viewport's width
             const delta = (clientX - lastX.current) / viewport.width
 
-            // Update the island's rotation based on the mouse/touch movement
             planetRef.current.rotation.y += delta * 0.009 * Math.PI
 
-            // Update the reference for the last clientX position
             lastX.current = clientX
-
-            // Update the rotation speed
             rotationSpeed.current = delta * 0.009 * Math.PI
         }
     }
-    // Handle keydown events
     const handleKeyDown = (event) => {
         if (event.key === "ArrowLeft") {
             if (!isRotating) setIsRotating(true)
@@ -67,15 +59,12 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
         }
     }
 
-    // Handle keyup events
     const handleKeyUp = (event) => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
             setIsRotating(false)
         }
     }
     useEffect(() => {
-
-        // Add event listeners for pointer down, pointer move, and pointer up
         gl.domElement.addEventListener('pointerdown', handlePointerDown)
         gl.domElement.addEventListener('pointermove', handlePointerMove)
         gl.domElement.addEventListener('pointerup', handlePointerUp)
@@ -84,13 +73,10 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
         gl.domElement.addEventListener('touchend', handlePointerUp)
         // window.addEventListener("keydown", handleKeyDown)
         // window.addEventListener("keyup", handleKeyUp)
-
-
         actions["Action"].timeScale = 0.08
         actions["Action"].play()
 
         return () => {
-            // Remove event listeners when the component is unmounted
             gl.domElement.removeEventListener('pointerdown', handlePointerDown)
             gl.domElement.removeEventListener('pointermove', handlePointerMove)
             gl.domElement.removeEventListener('pointerup', handlePointerUp)
@@ -100,17 +86,14 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
             // window.addEventListener("keydown", handleKeyDown)
             // window.addEventListener("keyup", handleKeyUp)
         }
-
-
     }, [gl, handlePointerDown, handlePointerMove, handlePointerUp, actions])
 
 
     useEffect(() => {
-        // Check if the model has been loaded
         if (nodes && materials && animations) {
             setModelLoaded(true)
             if (onLoad) {
-                onLoad() // Call the onLoad callback if provided
+                onLoad()
             }
         }
     }, [nodes, materials, animations, onLoad])
@@ -118,23 +101,17 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
 
 
     useFrame(() => {
-        // If not rotating, apply damping to slow down the rotation (smoothly)
         if (!isRotating) {
-            // Apply damping factor
             rotationSpeed.current *= dampingFactor * 0.01
-
-            // Stop rotation when speed is very small
             if (Math.abs(rotationSpeed.current) < 0.001) {
                 rotationSpeed.current = 0
             }
 
             planetRef.current.rotation.y += rotationSpeed.current
         } else {
-            // When rotating, determine the current stage based on island's orientation
             const rotation = planetRef.current.rotation.y
 
             const normalizedRotation = ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-            // Set the current stage based on the island's orientation
             switch (true) {
                 case normalizedRotation >= 5.45 && normalizedRotation <= 6.15:
                     setCurrentStage(4)
@@ -156,7 +133,6 @@ const Planet = ({ isRotating, setIsRotating, setCurrentStage, onLoad, ...props }
             }
         }
     })
-
 
     return (
         <a.group ref={planetRef}{...props} dispose={null}>
