@@ -27,7 +27,6 @@ import {
 } from "../assets/icons";
 
 export const skills = [
-    // Programming Languages first
      {
         imageUrl: c,
         name: "C",
@@ -58,8 +57,6 @@ export const skills = [
         name: "JavaScript",
         type: "Programming Language",
     },
-    
-    // Then, other skills based on their role in development
     {
         imageUrl: react,
         name: "React",
@@ -80,7 +77,6 @@ export const skills = [
         name: "MongoDB",
         type: "Database",
     },
-    // DevOps and Cloud
     {
         imageUrl: docker,
         name: "Docker",
@@ -91,7 +87,6 @@ export const skills = [
         name: "Azure",
         type: "Cloud",
     },
-    // Version Control
     {
         imageUrl: git,
         name: "Git",
@@ -102,7 +97,6 @@ export const skills = [
         name: "GitHub",
         type: "Version Control",
     },
-    // Communication Tools
     {
         imageUrl: slack,
         name: "Slack",
@@ -115,7 +109,7 @@ export const experiences = [
     {
         title: "Assistant Project Manager",
         company_name: "PTN MED CO",
-        icon: ptn, // Ensure you have a corresponding icon for PTN MED CO
+        icon: ptn, 
         iconBg: "lightgray",
         date: "July 2023 – April 2024",
         points: [
@@ -129,7 +123,7 @@ export const experiences = [
     {
         title: "Google Specialist",
         company_name: "Google",
-        icon: google, // Ensure you have a corresponding icon for Google
+        icon: google,
         iconBg: "#fbc3bc",
         date: "August 2022 – December 2023",
         points: [
@@ -142,7 +136,7 @@ export const experiences = [
     {
         title: " Apple Authorized Representative",
         company_name: "Jump Plus",
-        icon: jumpplus, // Ensure you have a corresponding icon for Jump Plus
+        icon: jumpplus, 
         iconBg: "#a2d2ff",
         date: "May 2022– August 2022",
         points: [
@@ -175,32 +169,32 @@ export const socialLinks = [
 
 export const projects = [
     {
-        iconUrl: udpProtocol, // Replace with actual icon URL
-        theme: 'btn-back-red', // You can customize the theme color as needed
+        iconUrl: udpProtocol, 
+        theme: 'btn-back-red', 
         name: 'Reliable UDP Protocol Simulation',
         description: 'Spearheaded the creation of a reliable UDP-based network protocol supporting IPv4/IPv6 to ensure data integrity under lossy conditions. Developed sender, receiver, and proxy modules to simulate real-world network unreliability, enhancing protocol robustness.',
-        link: 'https://github.com/SAMi-Rn/reliable-udp.git', // Add the link if available
+        link: 'https://github.com/SAMi-Rn/reliable-udp.git',
     },
     {
-        iconUrl: lifeAwareApp, // Replace with actual icon URL
+        iconUrl: lifeAwareApp, 
         theme: 'btn-back-green',
         name: 'LifeAware Android App',
         description: 'Collaborated with a team to design and develop an Android app focused on emergency fall detection, utilizing accelerometer data for immediate alerts to caregivers, significantly improving emergency response capabilities.',
-        link: 'https://github.com/SheyBarpagga/LifeAware.git', // Add the link if available
+        link: 'https://github.com/SheyBarpagga/LifeAware.git', 
     },
     {
-        iconUrl: tcpFileTransfer, // Replace with actual icon URL
+        iconUrl: tcpFileTransfer,
         theme: 'btn-back-blue',
         name: 'TCP File Transfer System',
         description: 'Designed and implemented a robust TCP client-server application facilitating seamless file transfers across networks. Engineered a sophisticated architecture enabling efficient handling of multiple client connections and reliable file transmission.',
-        link: 'https://github.com/SAMi-Rn/fsm.git', // Add the link if available
+        link: 'https://github.com/SAMi-Rn/fsm.git', 
     },
     {
-        iconUrl: hackathonQds, // Replace with actual icon URL or a generic hackathon icon
+        iconUrl: hackathonQds, 
         theme: 'btn-back-pink',
         name: 'Hackathon QDS - Space to Breathe',
         description: 'Implemented "Space to Breathe", focusing on students’ wellbeing and wellness as a full-stack project during a hackathon, utilizing React for the frontend and Node Express for the backend, aimed at enhancing student life through wellness resources.',
-        link: '', // Add the link if available or participated as a team
+        link: '', 
     },
     {
     iconUrl: airport,
@@ -216,6 +210,5 @@ export const projects = [
     description: "Developed a secure, real-time chatting application with React front-end and Node.js/Express backend. Enabled live chat, file sharing, and music streaming using socket.io, with MongoDB for data storage. Implemented encryption and hashing for data security and user privacy. Added profile customization and live status indicators for enhanced user experience. Technologies: React, Node.js, Express, MongoDB, socket.io.",
     link: "https://github.com/SAMi-Rn/BreezeChat.git"
 }
-    
-    // Add any additional projects here
+
 ];
