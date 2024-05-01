@@ -43,4 +43,3 @@ The website is currently deployed and live. For deployment on other services, re
 ## Contribution
 Contributions
 Feedback and contributions are welcome. Please feel free to contact me directly through the website's contact form.
-
