@@ -20,7 +20,7 @@ The website is a single-page application (SPA) built with React, offering a rich
 To run this project locally, clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/SAMi-Rn/Personal_Web.git
+git clone https://github.com/SAMi-Rn/Personal_Website.git
 cd Personal_Web
 npm install
 ```
